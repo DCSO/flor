@@ -1,0 +1,8 @@
+*.egg-info
+dist/
+build/
+.cache
+*.pyc
+*~
+*.bloom
+venv*/*
