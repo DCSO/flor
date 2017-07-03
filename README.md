@@ -1,5 +1,7 @@
 # Flor - A Bloom filter implementation in Python
 
+[![Build Status](https://travis-ci.org/DCSO/flor.svg?branch=master)](https://travis-ci.org/DCSO/flor)
+
 Flor implements a Bloom filter class that is fully compatible with our
 [Go Bloom filter implementation](https://github.com/DCSO/bloom).
 
