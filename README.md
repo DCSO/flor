@@ -7,7 +7,7 @@ Flor implements a Bloom filter class that is fully compatible with our
 
 # Requirements
 
-Flor is compatible with Python 2 and Python 3 and does not require any
+Flor is compatible with Python 2.7+ and Python 3.2+ as well as PyPy2/3 and does not require any
 non-standard modules.
 
 # Installation
