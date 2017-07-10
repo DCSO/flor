@@ -9,7 +9,7 @@ from flor.filter import BloomFilter
 
 class TestFilter(unittest.TestCase):
 
-    def test_creation(self):
+    def test_creation(self) -> None:
         bf = BloomFilter(n=100000, p=0.01)
         assert bf.n == 100000
         assert bf.p == 0.01
@@ -19,7 +19,7 @@ class TestFilter(unittest.TestCase):
         assert bf.k == 7
         assert bf.N == 0
 
-    def test_add_and_check(self):
+    def test_add_and_check(self) -> None:
         bf = BloomFilter(n=100000, p=0.01)
         values = (b'bar', b'baz', b'boo', b'bam')
         for value in values:
@@ -39,7 +39,7 @@ class TestFilter(unittest.TestCase):
             #this might occasionally fail (very seldom though)
             assert not value+b'sdfsfds2asd' in bf
 
-    def test_read_and_write(self):
+    def test_read_and_write(self) -> None:
         fs = BytesIO()
 
         bf = BloomFilter(n=100000, p=0.01)
@@ -64,7 +64,7 @@ class TestFilter(unittest.TestCase):
         assert new_bf.m == bf.m
         assert new_bf.N == bf.N
         assert new_bf.M == bf.M
-        assert new_bf.bytes == bf.bytes
+        assert new_bf._bytes == bf._bytes
 
         for value in values:
             assert value in new_bf and value in bf
