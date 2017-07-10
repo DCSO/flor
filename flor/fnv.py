@@ -11,7 +11,7 @@ def fnv_1(value):
     hash = offset
     for byte in value:
         hash = (hash*prime) & 0xFFFFFFFFFFFFFFFF
-        hash ^= ord(byte) if not isinstance(byte, int) else byte
+        hash ^= byte
     return hash
 
 def fnv_1a(value):
@@ -20,7 +20,7 @@ def fnv_1a(value):
         raise TypeError("Value must be a bytes object!")
     hash = offset
     for byte in value:
-        hash ^= ord(byte) if not isinstance(byte, int) else byte
+        hash ^= byte
         hash = (hash*prime) & 0xFFFFFFFFFFFFFFFF
     return hash
 
