@@ -64,7 +64,7 @@ class TestFilter(unittest.TestCase):
         assert new_bf.m == bf.m
         assert new_bf.N == bf.N
         assert new_bf.M == bf.M
-        assert new_bf.bytes == bf.bytes
+        assert new_bf._bytes == bf._bytes
 
         for value in values:
             assert value in new_bf and value in bf
