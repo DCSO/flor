@@ -42,7 +42,7 @@ class TestFilter(unittest.TestCase):
     def test_read_and_write(self):
         fs = BytesIO()
 
-        bf = BloomFilter(n=100000, p=0.01)
+        bf = BloomFilter(n=100000, p=0.01, data=b'foobar')
         values = (b'bar', b'baz', b'boo', b'bam')
         for value in values:
             bf.add(value)
@@ -64,6 +64,7 @@ class TestFilter(unittest.TestCase):
         assert new_bf.m == bf.m
         assert new_bf.N == bf.N
         assert new_bf.M == bf.M
+        assert new_bf.data == bf.data
         assert new_bf.bytes == bf.bytes
 
         for value in values:
