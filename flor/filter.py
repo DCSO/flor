@@ -12,10 +12,11 @@ class BloomFilter(object):
     class CapacityError(BaseException):
         pass
 
-    def __init__(self, n=100000, p=0.001):
+    def __init__(self, n=100000, p=0.001, data=b''):
         self.p = p
         self.n = n
         self.N = 0
+        self.data = data
         self.m = int(abs(math.ceil(float(n) * math.log(float(p)) / math.pow(math.log(2.0), 2.0))))
         #we work in 64 bit blocks as this is the format of the Go filter.
         self.M = int(math.ceil(float(self.m) / 64.0))*8
@@ -57,6 +58,9 @@ class BloomFilter(object):
         if len(self.bytes) != self.M:
             raise IOError("Mismatched number of bytes: Expected {}, got {}.".format(self.M,len(self.bytes)))
 
+        #we read in any data that might be attached to the file
+        self.data = input_file.read()
+
     def write(self, output_file):
         output_file.write(pack('<L', self.n))
         output_file.write(pack('<d', self.p))
@@ -64,6 +68,7 @@ class BloomFilter(object):
         output_file.write(pack('<L', self.m))
         output_file.write(pack('<L', self.N))
         output_file.write(bytes(self.bytes))
+        output_file.write(bytes(self.data))
 
     def add(self, value):
         fp = self.fingerprint(value)
