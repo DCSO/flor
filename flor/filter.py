@@ -12,7 +12,7 @@ class BloomFilter(object):
     class CapacityError(BaseException):
         pass
 
-    def __init__(self, n=100000, p=0.001):
+    def __init__(self, n=100000, p=0.001, data=b''):
         self.p = p
         self.n = n
         self.N = 0
