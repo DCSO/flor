@@ -5,8 +5,6 @@ import math
 from struct import unpack, pack
 from .fnv import fnv_1
 
-magic_seed = b'this-is-magical'
-
 class BloomFilter(object):
 
     class CapacityError(BaseException):
@@ -96,12 +94,14 @@ class BloomFilter(object):
 
     def fingerprint(self, value):
         bvalue = bytes(value)
-        h1 = fnv_1(bvalue)
-        h2 = fnv_1(bvalue+magic_seed)
+        hn = fnv_1(bvalue)
+        hm = hn
 
         fp = []
 
         for i in range(self.k):
-            fp.append(((h1+(i+1)*h2) & 0xffffffffffffffff) % self.m)
+            hn = (hn+hm*i) & 0xffffffffffffffff
+            hm = hn
+            fp.append(hn % self.m)
 
         return fp
