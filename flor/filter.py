@@ -25,7 +25,7 @@ class BloomFilter(object):
     def __contains__(self, value):
         return self.check(value)
 
-    def read(self, input_file : IO[bytes]):
+    def read(self, input_file):
         bs8 = input_file.read(8)
         if len(bs8) != 8:
             raise IOError("Invalid filter!")
