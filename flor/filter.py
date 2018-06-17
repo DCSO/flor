@@ -5,6 +5,9 @@ import math
 from struct import unpack, pack
 from .fnv import fnv_1
 
+m = 18446744073709551557
+g = 18446744073709550147
+
 class BloomFilter(object):
 
     class CapacityError(BaseException):
@@ -25,6 +28,15 @@ class BloomFilter(object):
         return self.check(value)
 
     def read(self, input_file):
+
+        bs8 = input_file.read(8)
+        if len(bs8) != 8:
+            raise IOError("Invalid filter!")
+        flags = unpack('<Q', bs8)[0]
+
+        if flags & 0xFF != 1:
+            raise IOError("Invalid version flag!")
+
         bs8 = input_file.read(8)
         if len(bs8) != 8:
             raise IOError("Invalid filter!")
@@ -60,6 +72,7 @@ class BloomFilter(object):
         self.data = input_file.read()
 
     def write(self, output_file):
+        output_file.write(pack('<Q', 1))
         output_file.write(pack('<Q', self.n))
         output_file.write(pack('<d', self.p))
         output_file.write(pack('<Q', self.k))
@@ -95,13 +108,10 @@ class BloomFilter(object):
     def fingerprint(self, value):
         bvalue = bytes(value)
         hn = fnv_1(bvalue)
-        hm = hn
-
         fp = []
 
         for i in range(self.k):
-            hn = (hn+hm*i) & 0xffffffffffffffff
-            hm = hn
+            hn = (hn*g) % m
             fp.append(hn % self.m)
 
         return fp
