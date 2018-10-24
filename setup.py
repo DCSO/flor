@@ -6,7 +6,7 @@
 from setuptools import setup
 
 setup(name='Flor',
-      version='1.0',
+      version='1.1.0',
       description='Flor - An efficient Bloom filter implementation in Python',
       author='Andreas Dewes - DCSO GmbH',
       author_email='andreas.dewes@dcso.de',
