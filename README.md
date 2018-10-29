@@ -24,6 +24,12 @@ Alternatively, you can install it from source:
     #add "sudo" if you're not in a virtual environment
     python setup.py install
 
+# Basics
+
+A Bloom filter has a capacity `n` and a false positive probability `p` that gives the probability
+that a filter filled to capacity (i.e. with `n` distinct values inserted) will return `True`
+for an element that is not in the filter.
+
 # Usage
 
 Creating a new Bloom filter:
