@@ -1,16 +1,24 @@
 language: python
 python:
-  - "2.7"
-  - "3.2"
-  - "3.3"
-  - "3.4"
-  - "3.5"
-  - "3.6"
-  - "pypy"
-  - "pypy3"
-  - "pypy-5.3.1"
+- '2.7'
+- '3.2'
+- '3.3'
+- '3.4'
+- '3.5'
+- '3.6'
+- pypy
+- pypy3
+- pypy-5.3.1
 install:
-  - pip install .
-  - pip install -r requirements.txt
-script:
-  python -m unittest discover
+- pip install .
+- pip install -r requirements.txt
+script: python -m unittest discover
+deploy:
+  provider: pypi
+  user: dcso
+  on:
+    tags: true
+    python: 3.6
+  distributions: "sdist bdist_wheel"
+  password:
+    secure: Zk6lZf+9yCOBuj0KTv7YidYm4rzPx7z2uYSek3GGgYw+e03Y29LHL8nO3dvEJ1LkeOlTPLD5oftPIJDYcfpAZaziNUVCug/7dy9vSG8Fa6ZCB/OzjRspTRlr1/Edg/wV0utIwWDraExNhxJ0o+/m/f1jus7hZc8UFZXiR+PXQiE68HIiP3RZLNOfmCCVDiu9TRDsW3VRH5JIvoxksDde59pGV1czUzZSwADpA1ovDcsbONNPLxtynt3Ppk5p/K2bBia8u+7kWhOcK02EaeRLqj3l4LzlEnfU4qylilyMZmCWdAe9KIKiuprGGPnfUgZkEub+3QX1mvYCHpfG/EnouOwJpq+gcPsK2Ms1p7o/tX5vQEEBr7la7No7afjXjDiUKfYr70la9CnLPVWvmLzwYo6CpHw4SzFbVFFczVHkhz6Pl/Nfpsd2KdDChu/ir1ZsCCddjGWh/UvR+r8G4rn7VJRX+zrR+5OOG4x1Znjrb0+4bxyRYpSOLY6KHHgLej3MNnsxNTK7L4h3JdpDIC+pF6TAnpqe9BBxxu12ih8+DYPXz7b6b3gW/b2VQSFJw7+NptRAwKjT/SA/bzeKggrQJLUAuS5gxtTYZMe9171LgQXX4f1Wd4dQUYDh/qduRqC++LJ9OaR/b3vDYfJEZZ/kZk1MKvGVYZrhfz3IohdrIak=
