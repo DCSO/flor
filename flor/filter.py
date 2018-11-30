@@ -107,11 +107,9 @@ class BloomFilter(object):
 
     def fingerprint(self, value):
         bvalue = bytes(value)
-        hn = fnv_1(bvalue)
+        hn = fnv_1(bvalue) % m
         fp = []
-
         for i in range(self.k):
-            hn = (hn*g) % m
-            fp.append(hn % self.m)
-
+            hn = (hn*g & 0xFFFFFFFFFFFFFFFF) % m
+            fp.append((hn % self.m) & 0xFFFFFFFFFFFFFFFF)
         return fp
