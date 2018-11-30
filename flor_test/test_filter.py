@@ -7,6 +7,13 @@ import math
 from io import BytesIO
 from flor.filter import BloomFilter
 
+class TestFingerprints(unittest.TestCase):
+
+    def test_fingerprints(self):
+        bf = BloomFilter(n=100000, p=0.01)
+        fp = bf.fingerprint(b"bar")
+        assert fp == [20311, 36825, 412501, 835777, 658914, 853361, 307361]
+
 class TestFilter(unittest.TestCase):
 
     def test_creation(self):
@@ -46,7 +53,6 @@ class TestFilter(unittest.TestCase):
         values = (b'bar', b'baz', b'boo', b'bam')
         for value in values:
             bf.add(value)
-
         bf.write(fs)
 
         assert len(fs.getvalue()) > 0
